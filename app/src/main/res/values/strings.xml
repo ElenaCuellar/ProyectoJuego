@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ProyectoJuego</string>
+    <string name="titulodiag">Fin del juego</string>
+    <string name="textodiag">El juego ha terminado. Pulse en Nuevo juego para volver a jugar o en Salir para abandonar</string>
+    <string name="nuevoj">Nuevo juego</string>
+    <string name="salir">Salir</string>
 </resources>
