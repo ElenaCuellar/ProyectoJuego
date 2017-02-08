@@ -5,4 +5,7 @@
     <string name="salir">Exit</string>
     <string name="textodiag">Game has finished. Push New game if you want to play again or Exit to leave</string>
     <string name="titulodiag">Game finished</string>
+    <string name="aceptar">OK</string>
+    <string name="textoDiSensor">No sensor available. The game will run without sensor functionality.</string>
+    <string name="tituloDiagSensor">No sensor available.</string>
 </resources>

@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameView extends SurfaceView {
-    protected HiloGameLoop hiloLoop;
-    private List<TempSprite> temps = new ArrayList<TempSprite>();
-    private List<Bola> bolas = new ArrayList<Bola>();
+    public HiloGameLoop hiloLoop;
+    public List<TempSprite> temps = new ArrayList<TempSprite>();
+    public List<Bola> bolas = new ArrayList<Bola>();
     private long lastClick;
     private Bitmap bmpExpl;
     private SoundPool sp;
     private int miSonido = 0;
     public MainActivity contexto;
+    public boolean finJuego = false;
 
     public GameView(Context context) {
         super(context);
@@ -39,14 +40,18 @@ public class GameView extends SurfaceView {
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
                 boolean retry = true;
-                hiloLoop.setRunning(false);
-                while (retry) {
-                    try {
-                        hiloLoop.join();
-                        retry = false;
-                    } catch (InterruptedException e) {
+                if(!finJuego) {
+                    hiloLoop.setRunning(false);
+                    while (retry) {
+                        try {
+                            hiloLoop.join();
+                            retry = false;
+                        } catch (InterruptedException e) {
+                        }
                     }
                 }
+                else
+                    finJuego=false;
             }
 
             @Override
@@ -63,17 +68,25 @@ public class GameView extends SurfaceView {
     }
 
     private void crearSprites() {
-        bolas.add(crearSprite(R.drawable.rojas));
-        bolas.add(crearSprite(R.drawable.azules));
-        bolas.add(crearSprite(R.drawable.verdes));
-        bolas.add(crearSprite(R.drawable.rojas));
-        bolas.add(crearSprite(R.drawable.azules));
-        bolas.add(crearSprite(R.drawable.verdes));
+        int roja = R.drawable.rojas;
+        int azul = R.drawable.azules;
+        int verde = R.drawable.verdes;
+        int totalBolas = (int)(Math.random()*15+5);
+        int random;
+        for(int b=1;b<=totalBolas;b++) {
+            random = (int)(Math.random()*3+1);
+            if(random==3)
+                bolas.add(crearSprite(roja));
+            else if (random==2)
+                bolas.add(crearSprite(azul));
+            else
+                bolas.add(crearSprite(verde));
+        }
     }
 
-    private Bola crearSprite(int res) {
+    public Bola crearSprite(int res) {
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), res);
-        return new Bola(this,bmp);
+        return new Bola(this,bmp,res);
     }
 
     @Override
@@ -115,6 +128,8 @@ public class GameView extends SurfaceView {
                             });
                             alertDialogBu.setNegativeButton(contexto.getString(R.string.salir), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    finJuego=true;
+                                    hiloLoop.setRunning(false);
                                     contexto.finish();
                                 }
                             });
@@ -131,8 +146,17 @@ public class GameView extends SurfaceView {
         return true;
     }
 
-    protected void cerrarJuego(){
+    public void setVelocidadX(int acelX){
+        //!!
+        for (Bola bola : bolas) {
+            bola.x=acelX;
+        }
+    }
+
+    public void cerrarJuego(){
         sp.release();
+        if(hiloLoop!=null)
+            hiloLoop=null;
     }
 
 }

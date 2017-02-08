@@ -13,19 +13,21 @@ public class Bola {
     private static final int BMP_ROWS = 4;
     private static final int BMP_COLUMNS = 3;
     private static final int MAX_SPEED = 5;
-    private int x = 0;
-    private int y = 0;
-    private int xSpeed = 5;
-    private int ySpeed;
+    public int x = 0;
+    public int y = 0;
+    public int xSpeed = 5;
+    public int ySpeed;
     private GameView gameView;
     private Bitmap bmp;
+    public int idRecurso;
     private int currentFrame = 0;
     private int width;
     private int height;
 
-    public Bola(GameView gameView, Bitmap bmp) {
+    public Bola(GameView gameView, Bitmap bmp,int idRec) {
         this.gameView = gameView;
         this.bmp = bmp;
+        idRecurso=idRec;
         this.width = bmp.getWidth() / BMP_COLUMNS;
         this.height = bmp.getHeight() / BMP_ROWS;
         Random rnd = new Random();
