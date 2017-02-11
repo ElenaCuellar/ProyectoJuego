@@ -5,6 +5,6 @@
     <string name="nuevoj">Nuevo juego</string>
     <string name="salir">Salir</string>
     <string name="tituloDiagSensor">No hay un sensor disponible</string>
-    <string name="textoDiSensor">No hay sensores disponibles. El juego funcionara sin sensores.</string>
+    <string name="textoDiSensor">No hay sensores disponibles. El juego se cerrara.</string>
     <string name="aceptar">Aceptar</string>
 </resources>

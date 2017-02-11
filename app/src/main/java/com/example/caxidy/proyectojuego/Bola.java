@@ -15,7 +15,7 @@ public class Bola {
     private static final int MAX_SPEED = 5;
     public int x = 0;
     public int y = 0;
-    public int xSpeed = 5;
+    public int xSpeed=5;
     public int ySpeed;
     private GameView gameView;
     private Bitmap bmp;
@@ -37,15 +37,15 @@ public class Bola {
         ySpeed = rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED;
     }
 
-    private void update() {
-        //Si x no se sale de la pantalla, se aumenta la posicion. Y si se sale, choca y da la vuelta
+    public void update() {
+        //Si x no se sale de la pantalla, se aumenta la posicion. Y si se sale, choca en el borde
         if (x >= gameView.getWidth() - width - xSpeed || x + xSpeed <= 0) {
-            xSpeed = -xSpeed;
+            xSpeed = 0;
         }
-        x += xSpeed;
+        x +=xSpeed;
 
         if (y >= gameView.getHeight() - height - ySpeed || y + ySpeed <= 0) {
-            ySpeed = -ySpeed;
+            ySpeed = 0;
         }
         y += ySpeed;
 

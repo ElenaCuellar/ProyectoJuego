@@ -90,7 +90,7 @@ public class GameView extends SurfaceView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected synchronized void onDraw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
         for (int i = temps.size() - 1; i >= 0; i--) {
             temps.get(i).onDraw(canvas);
@@ -147,9 +147,14 @@ public class GameView extends SurfaceView {
     }
 
     public void setVelocidadX(int acelX){
-        //!!
         for (Bola bola : bolas) {
-            bola.x=acelX;
+            bola.xSpeed=acelX;
+        }
+    }
+
+    public void setVelocidadY(int acelY){
+        for (Bola bola : bolas) {
+            bola.ySpeed=acelY;
         }
     }
 
